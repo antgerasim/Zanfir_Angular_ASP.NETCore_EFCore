@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PlayQuizComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private api: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
