@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +23,18 @@ namespace Quiz_Backend.Controllers
         }
 
         // GET: api/Quizzes
+        [Authorize]
         [HttpGet]
-        public IEnumerable<Quiz> GetQuiz()
+        public IEnumerable<Quiz> GetQuiz() //for specific user, get quizes that we own
         {
+            var userId = HttpContext.User.Claims.First().Value;
+            return _context.Quiz.Where(q => q.OwnerId == userId);
+        }
+
+        [HttpGet("all")]
+        public IEnumerable<Quiz> GetAllQuiz()
+        {
+
             return _context.Quiz;
         }
 
@@ -83,6 +93,7 @@ namespace Quiz_Backend.Controllers
         }
 
         // POST: api/Quizzes
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostQuiz([FromBody] Quiz quiz)
         {
@@ -90,6 +101,10 @@ namespace Quiz_Backend.Controllers
             {
                 return BadRequest(ModelState);
             }
+            //Since we're adding one claim the user id to the claims list, this will work fine. But if you had multiple claims, once you start using this in prod environment, you would need a more elobarate setup.
+            var userId = HttpContext.User.Claims.First().Value;
+
+            quiz.OwnerId = userId;
 
             _context.Quiz.Add(quiz);
             await _context.SaveChangesAsync();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Quiz_Backend.Data;
 using Quiz_Backend.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Quiz_Backend.Controllers
@@ -23,13 +24,26 @@ namespace Quiz_Backend.Controllers
         public IEnumerable<Question> Get()
         {
             return context.Questions;
+        }
 
+        // GET api/values
+        [HttpGet("{quizId}")]
+        public IEnumerable<Question> Get([FromRoute] int quizId)
+        {
+            return context.Questions.Where(q => q.Id == quizId);
         }
 
         // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Question question)
         {
+            var quiz = context.Quiz.SingleOrDefault(q => q.Id == question.QuizId);
+
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+
             context.Questions.Add(question);
             await context.SaveChangesAsync();
             return Ok(question);
@@ -54,4 +68,3 @@ namespace Quiz_Backend.Controllers
     }
 }
 
-//weiter 609024_07_06 - Associate quiz to questions

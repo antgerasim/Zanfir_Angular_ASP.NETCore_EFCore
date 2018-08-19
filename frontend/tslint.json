@@ -71,9 +71,9 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": false,
     "no-unnecessary-initializer": true,
-    "no-unused-expression": true,
+    "no-unused-expression": false,
     "no-use-before-declare": true,
-    "no-var-keyword": true,
+    "no-var-keyword": false,
     "object-literal-sort-keys": false,
     "one-line": [
       true,
@@ -82,7 +82,7 @@
       "check-else",
       "check-whitespace"
     ],
-    "prefer-const": true,
+    "prefer-const": false,
     "quotemark": [
       true,
       "single"

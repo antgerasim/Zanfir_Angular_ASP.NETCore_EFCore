@@ -18,9 +18,9 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   /* QUESTIONS */
-  getQuestions() {
+  getQuestions(quizId) {
     // return observable instead of object so we can subscribe to it
-    return this.http.get('http://localhost:55981/api/questions');
+    return this.http.get(`http://localhost:55981/api/questions/${quizId}`);
   }
 
 
@@ -49,8 +49,14 @@ export class ApiService {
     // return observable instead of object so we can subscribe to it
     return this.http.get('http://localhost:55981/api/quizzes');
   }
+
+  getAllQuizzes() {
+    // return observable instead of object so we can subscribe to it
+    return this.http.get('http://localhost:55981/api/quizzes/all');
+  }
+
   postQuiz(quiz) {
-    debugger;
+    //debugger;
     this.http.post('http://localhost:55981/api/quizzes', quiz).subscribe(res => {
       console.log(res);
     });
