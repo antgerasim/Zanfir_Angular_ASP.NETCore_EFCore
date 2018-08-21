@@ -48,7 +48,7 @@ namespace Quiz_Backend.Controllers
             {
                 return BadRequest();// result dont have errors property 
             }
-            
+
             var user = await userManager.FindByEmailAsync(credentials.Email);
             return Ok(CreateToken(user));
         }

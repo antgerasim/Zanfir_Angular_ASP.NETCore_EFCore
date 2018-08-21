@@ -5,12 +5,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//Angular-Material Modules
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatRadioModule} from '@angular/material/radio';
+//Custom services
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 
@@ -31,11 +34,12 @@ const routes = [
   { path: 'question', component: QuestionComponent },
   { path: 'question/:quizId', component: QuestionComponent },
   { path: 'questions', component: QuestionsComponent },
-  { path: 'quiz', component: QuizComponent },
+  { path: 'quiz', component: QuizComponent }, // todo add quiz/:quizId
   { path: 'quizzes', component: QuizzesComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'play', component: PlayComponent }
+  { path: 'play', component: PlayComponent },
+  { path: 'playQuiz/:quizId', component: PlayQuizComponent } // make sure no whitespace comes after /: 
 ];
 
 @NgModule({
@@ -63,7 +67,9 @@ const routes = [
     MatListModule,
     MatToolbarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatRadioModule
 
   ],
   providers: [ApiService, AuthService, {

@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
+  private port1 = 54941;
+  private port2 = 55981;
+
   constructor(private http: HttpClient, private router: Router) { }
 
   get isAuthenticated() {
@@ -15,13 +18,13 @@ export class AuthService {
 
 
   register(credentials) {
-    return this.http.post<any>('http://localhost:55981/api/account', credentials).subscribe(res => {
+    return this.http.post<any>(`http://localhost:${this.port1}/api/account`, credentials).subscribe(res => {
       this.authenticate(res);
     });
   }
 
   login(credentials) {
-    return this.http.post<any>('http://localhost:55981/api/account/login', credentials).subscribe(res => {
+    return this.http.post<any>(`http://localhost:${this.port1}/api/account/login`, credentials).subscribe(res => {
       this.authenticate(res);
     });
   }

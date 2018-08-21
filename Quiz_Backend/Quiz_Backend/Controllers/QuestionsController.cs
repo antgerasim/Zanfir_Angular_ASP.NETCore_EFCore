@@ -30,7 +30,10 @@ namespace Quiz_Backend.Controllers
         [HttpGet("{quizId}")]
         public IEnumerable<Question> Get([FromRoute] int quizId)
         {
-            return context.Questions.Where(q => q.Id == quizId);
+            //show all questions
+            var allQuestions = context.Questions.ToList();
+            var retVal = context.Questions.Where(q => q.QuizId == quizId);
+            return retVal;
         }
 
         // POST api/values
